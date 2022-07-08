@@ -47,12 +47,13 @@ function App() {
     <div className="main-container">
       <div className="main-title-searchicon-container">
         <div className="title-search-container">
-          <div>WeatherApp</div>
+          <div className="weather-title-container">
+            <div className="weather-title">WeatherApp</div>
+          </div>
           <SearchWeather />
         </div>
       </div>
       <div className="location-time-date-container">
-        Weather time and temp
         <div className="temp-location-date-container">
           <Temperature temp={temp} />
           <LocationTimeDate loc={loc} time={time} date={date} />
