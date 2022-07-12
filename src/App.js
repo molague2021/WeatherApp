@@ -7,12 +7,24 @@ import weatherApi from './service/weatherApi';
 import weatherData from './data/weatherData';
 
 function App() {
-  const API_KEY = 'adb6273fdb1d40ea056888a68c9a8f3a';
+  const API_KEY = process.env.REACT_APP_WEATHER_APIKEY;
 
+  const [loading, setLoading] = useState(true);
   const [temp, setTemp] = useState();
   const [loc, setLoc] = useState();
   const [time, setTime] = useState();
   const [date, setDate] = useState();
+
+  // const getLonandLat = async () => {
+  //   const response = await fetch(
+  //     `http://api.openweathermap.org/geo/1.0/direct?q=el+paso,texas,79938&appid=${API_KEY}`,
+  //     { method: 'GET' }
+  //   );
+
+  //   const data = await response.json();
+
+  //   return data;
+  // };
 
   const getWeather = async () => {
     const response = await fetch(
@@ -20,9 +32,14 @@ function App() {
       { method: 'GET' }
     );
 
-    const data = response.data;
+    const data = await response.json();
+    console.log(data);
 
-    return data;
+    setTemp(Math.round(data.main.temp) + '\u00B0');
+    setLoc(data.name);
+    setTime(convertToTime(data.dt));
+    setDate(convertToDate(data.dt));
+    setLoading(false);
   };
 
   const convertToTime = (time) => {
@@ -37,10 +54,11 @@ function App() {
   };
 
   useEffect(() => {
-    setTemp(Math.round(weatherData[0].main.temp) + '\u00B0');
-    setLoc(weatherData[0].name);
-    setTime(convertToTime(weatherData[0].dt));
-    setDate(convertToDate(weatherData[0].dt));
+    getWeather();
+    //setTemp(Math.round(weatherData[0].main.temp) + '\u00B0');
+    //setLoc(weatherData[0].name);
+    //setTime(convertToTime(weatherData[0].dt));
+    //setDate(convertToDate(weatherData[0].dt));
   }, []);
 
   return (
@@ -54,11 +72,15 @@ function App() {
         </div>
       </div>
       <div className="location-time-date-container">
-        <div className="temp-location-date-container">
-          <Temperature temp={temp} />
-          <LocationTimeDate loc={loc} time={time} date={date} />
-          <WeatherIcon />
-        </div>
+        {loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <div className="temp-location-date-container">
+            <Temperature temp={temp} />
+            <LocationTimeDate loc={loc} time={time} date={date} />
+            <WeatherIcon />
+          </div>
+        )}
       </div>
     </div>
   );
