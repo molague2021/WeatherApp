@@ -67,20 +67,20 @@ function App() {
         <div className="title-search-container">
           <div className="weather-title-container">
             <div className="weather-title">WeatherApp</div>
+            <div className="location-time-date-container">
+              {loading ? (
+                <h3>Loading...</h3>
+              ) : (
+                <div className="temp-location-date-container">
+                  <Temperature temp={temp} />
+                  <LocationTimeDate loc={loc} time={time} date={date} />
+                  <WeatherIcon />
+                </div>
+              )}
+            </div>
           </div>
           <SearchWeather />
         </div>
-      </div>
-      <div className="location-time-date-container">
-        {loading ? (
-          <h3>Loading...</h3>
-        ) : (
-          <div className="temp-location-date-container">
-            <Temperature temp={temp} />
-            <LocationTimeDate loc={loc} time={time} date={date} />
-            <WeatherIcon />
-          </div>
-        )}
       </div>
     </div>
   );

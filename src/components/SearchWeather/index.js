@@ -2,17 +2,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import SearchNav from '../SearchNav';
 
 function SearchWeather() {
-  // return (
-  //   <div className="search-icon-container">
-  //     <div className="searchIcon">
-  //       <button className="search">
-  //         <SearchIcon style={{ fontSize: '2.5rem' }} />
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
-
-  return <SearchNav />;
+  return (
+    <div className="search-icon-container">
+      <SearchNav />
+    </div>
+  );
 }
 
 export default SearchWeather;
