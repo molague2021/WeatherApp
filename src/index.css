@@ -16,9 +16,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
+  position: inherit;
   height: 100vh;
-  width: 100vh;
+  width: 100%;
   flex: 1;
   color: #fff;
   line-height: 1.6;
@@ -42,7 +42,6 @@ body {
 .title-search-container {
   display: inline-flex;
   width: 100%;
-  max-width: 1980px;
 }
 
 .weather-title-container {
@@ -59,8 +58,6 @@ body {
 
 .search-icon-container {
   flex: 1;
-  padding-left: 0.5rem;
-  margin-left: 0.5rem;
 }
 
 .searchIcon {
@@ -200,6 +197,7 @@ body {
   display: flex;
   justify-content: end;
   align-items: center;
+  flex: 1;
 }
 
 .menu-bars {
@@ -210,7 +208,7 @@ body {
 
 .nav-menu {
   background-color: #000000;
-  width: 100%;
+  width: 49%;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -247,12 +245,12 @@ body {
 }
 
 .nav-menu-items {
-  width: 100%;
+  width: 80%;
+  padding: 10px;
 }
 
 .navbar-toggle {
   background-color: #000000;
-  width: 100%;
   height: 80px;
   display: flex;
   justify-content: end;
@@ -268,11 +266,15 @@ body {
 .nav-input {
   width: 100%;
   display: flex;
+  padding: 0px 16px;
 }
 
 .nav-searchbutton {
   display: flex;
   width: 100%;
+  height: 80px;
+  width: 49%;
+  position: fixed;
   justify-content: end;
 }
 

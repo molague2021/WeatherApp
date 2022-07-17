@@ -41,11 +41,6 @@ function SearchNav() {
               <div className="nav-input">
                 <input />
               </div>
-              <div className="nav-searchbutton">
-                <button className="menu-bars" onClick={showSidebar}>
-                  <SearchIcon style={{ fontSize: '2.5rem', color: 'white' }} />
-                </button>
-              </div>
             </div>
           </li>
           {weather.map((item, index) => {
@@ -57,6 +52,11 @@ function SearchNav() {
             );
           })}
         </ul>
+        <div className="nav-searchbutton">
+          <button className="menu-bars" onClick={showSidebar}>
+            <SearchIcon style={{ fontSize: '2.5rem', color: 'white' }} />
+          </button>
+        </div>
       </nav>
     </>
   );
