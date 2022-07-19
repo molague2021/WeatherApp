@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import WeatherData from './WeatherData';
+import Button from '../../shared/Button';
 
 function SearchNav() {
+  const [text, setText] = useState('');
   const [sidebar, setSidebar] = useState(false);
 
   const weather = [
@@ -13,20 +15,29 @@ function SearchNav() {
   ];
 
   const showSidebar = () => {
-    console.log(sidebar);
-    //setSidebar(!sidebar);
+    //console.log(sidebar);
+    setSidebar(!sidebar);
+  };
+
+  const searchLocation = (e) => {
+    e.preventDefault();
+    setText(e.target.value);
+    console.log('Submitting this type in ', text);
   };
   return (
     <>
-      <div className="navbar">
-        <button className="menu-bars" onClick={showSidebar}>
-          <SearchIcon style={{ fontSize: '2.5rem', color: 'white' }} />
-        </button>
-      </div>
+      <Button showSidebar={showSidebar} />
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-        <ul
-          className="nav-menu-items"
-          /*style={{
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+          }}
+        >
+          <ul
+            className="nav-menu-items"
+            /*style={{
             listStyle: 'none',
             padding: 0,
             margin: 0,
@@ -35,28 +46,74 @@ function SearchNav() {
             justifyContent: 'flex-end',
             gap: '1rem',
           }}*/
-        >
-          <li className="navbar-toggle">
-            <div className="nav-input-searchIcon">
-              <div className="nav-input">
-                <input />
+          >
+            <li className="navbar-toggle">
+              <div className="nav-input-searchIcon">
+                <div className="nav-input">
+                  <form onSubmit={searchLocation} style={{ width: '100%' }}>
+                    <input
+                      className="inputfield"
+                      placeholder="Another location"
+                      type="text"
+                    />
+                  </form>
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </ul>
           {weather.map((item, index) => {
             return (
-              <li key={index} className="nav-text">
-                <span>{item.name}</span>
-                <span>{item.value}</span>
-              </li>
+              <>
+                <ul
+                  className="nav-menu-items"
+                  /*style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            gap: '1rem',
+          }}*/
+                >
+                  <li key={index} className="nav-text">
+                    <span>{item.name}</span>
+                    <span>{item.value}</span>
+                  </li>
+                </ul>
+                <div
+                  style={{
+                    borderBottom: '1px solid white',
+                    margin: '0 100px 0 100px',
+                    width: '80%',
+                  }}
+                ></div>
+              </>
             );
           })}
-        </ul>
-        <div className="nav-searchbutton">
-          <button className="menu-bars" onClick={showSidebar}>
-            <SearchIcon style={{ fontSize: '2.5rem', color: 'white' }} />
-          </button>
+          {weather.map((item, index) => {
+            return (
+              <ul
+                className="nav-menu-items"
+                /*style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            gap: '1rem',
+          }}*/
+              >
+                <li key={index} className="nav-text">
+                  <span>{item.name}</span>
+                  <span>{item.value}</span>
+                </li>
+              </ul>
+            );
+          })}
         </div>
+        <Button style={{ maxWidth: '200px' }} showSidebar={showSidebar} />
       </nav>
     </>
   );
