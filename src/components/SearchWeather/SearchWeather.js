@@ -1,5 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
-import SearchNav from '../SearchNav';
+import SearchNav from '../SearchNav/SearchNav';
 
 function SearchWeather() {
   return (

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import SearchWeather from './components/SearchWeather/index';
-import Temperature from './components/Temperature/index';
-import LocationTimeDate from './components/LocationTimeDate/index';
-import WeatherIcon from './components/WeatherIcon';
+import SearchWeather from './components/SearchWeather/SearchWeather';
+import Weather from './components/Weather/Weather';
+
 import weatherApi from './service/weatherApi';
 import weatherData from './data/weatherData';
 
@@ -65,20 +64,13 @@ function App() {
     <div className="main-container">
       <div className="main-title-searchicon-container">
         <div className="title-search-container">
-          <div className="weather-title-container">
-            <div className="weather-title">WeatherApp</div>
-            <div className="location-time-date-container">
-              {loading ? (
-                <h3>Loading...</h3>
-              ) : (
-                <div className="temp-location-date-container">
-                  <Temperature temp={temp} />
-                  <LocationTimeDate loc={loc} time={time} date={date} />
-                  <WeatherIcon />
-                </div>
-              )}
-            </div>
-          </div>
+          <Weather
+            loading={loading}
+            temp={temp}
+            loc={loc}
+            time={time}
+            date={date}
+          />
           <SearchWeather />
         </div>
       </div>

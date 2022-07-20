@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import WeatherData from './WeatherData';
+import WeatherData from './WeatherData/WeatherData';
 import Button from '../../shared/Button';
 
 function SearchNav() {
@@ -20,10 +20,10 @@ function SearchNav() {
     localStorage.setItem('items', JSON.stringify(items));
   }, [items]);
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('items'));
-    console.log('Hello, local storage', items);
-  }, []);
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem('items'));
+  //   console.log('Hello, local storage', items);
+  // }, []);
 
   const showSidebar = () => {
     //console.log(sidebar);
@@ -32,8 +32,9 @@ function SearchNav() {
 
   const searchLocation = (e) => {
     e.preventDefault();
-    setText(e.target.value);
-    setItems(e.target.value);
+    console.log(e.target.value);
+    // setText(e.target.value);
+    // setItems(e.target.value);
     console.log('Submitting this type in ', text);
   };
 
@@ -68,7 +69,6 @@ function SearchNav() {
                       className="inputfield"
                       placeholder="Another location"
                       type="text"
-                      onChange={event => setItems(event.target.value)}
                     />
                   </form>
                 </div>

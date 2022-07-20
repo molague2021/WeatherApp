@@ -1,6 +1,6 @@
-import Location from './Location';
-import Date from './Date';
-import Time from './Time';
+import Location from './Location/Location';
+import Date from './Date/Date';
+import Time from './Time/Time';
 
 function LocationTimeDate({ loc, time, date }) {
   return (
