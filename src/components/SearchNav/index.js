@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import WeatherData from './WeatherData';
 import Button from '../../shared/Button';
 
 function SearchNav() {
   const [text, setText] = useState('');
+  const [items, setItems] = useState([]);
   const [sidebar, setSidebar] = useState(false);
 
   const weather = [
@@ -14,6 +15,16 @@ function SearchNav() {
     },
   ];
 
+  useEffect(() => {
+    console.log('Hello, this is a useEffect for when setting items');
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('items'));
+    console.log('Hello, local storage', items);
+  }, []);
+
   const showSidebar = () => {
     //console.log(sidebar);
     setSidebar(!sidebar);
@@ -22,8 +33,10 @@ function SearchNav() {
   const searchLocation = (e) => {
     e.preventDefault();
     setText(e.target.value);
+    setItems(e.target.value);
     console.log('Submitting this type in ', text);
   };
+
   return (
     <>
       <Button showSidebar={showSidebar} />
@@ -36,7 +49,7 @@ function SearchNav() {
           }}
         >
           <ul
-            className="nav-menu-items"
+            className="nav-menu-inputItem"
             /*style={{
             listStyle: 'none',
             padding: 0,
@@ -55,6 +68,7 @@ function SearchNav() {
                       className="inputfield"
                       placeholder="Another location"
                       type="text"
+                      onChange={event => setItems(event.target.value)}
                     />
                   </form>
                 </div>
@@ -78,7 +92,6 @@ function SearchNav() {
                 >
                   <li key={index} className="nav-text">
                     <span>{item.name}</span>
-                    <span>{item.value}</span>
                   </li>
                 </ul>
                 <div
