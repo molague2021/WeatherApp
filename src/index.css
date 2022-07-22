@@ -197,7 +197,7 @@ body {
 
 .navbarButton {
   height: 100px;
-    width: 100px;
+  width: 100px;
   display: flex;
   padding: 20px;
 }
@@ -208,7 +208,7 @@ body {
 .menu-bars {
   font-size: 2rem;
   height: 60px;
-    width: 60px;
+  width: 60px;
   background: none;
   border: none;
   cursor: pointer;
@@ -216,7 +216,7 @@ body {
 
 .nav-menu {
   background-color: rgb(0, 0, 0, 0.5);
-  width: 95vh;
+  width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -233,8 +233,6 @@ body {
 
 .nav-text {
   display: flex;
-  justify-content: end;
-  align-items: center;
   padding: 8px 16px 8px 0px;
   list-style: none;
   height: 60px;
