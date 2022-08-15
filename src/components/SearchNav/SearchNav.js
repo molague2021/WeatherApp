@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import WeatherData from './WeatherData/WeatherData';
 import Button from '../../shared/Button';
+import WeatherApi from '../../service/WeatherContext';
 
 function SearchNav() {
   const [text, setText] = useState('');
   const [items, setItems] = useState([]);
   const [sidebar, setSidebar] = useState(false);
 
+  const { getLongandLat, getWeather, humidity, cloudy, winds } =
+    useContext(WeatherApi);
+
   const weather = [
+    {
+      name: 'humidity',
+      value: '27',
+    },
     {
       name: 'humidity',
       value: '27',
     },
   ];
 
-  useEffect(() => {
-    console.log('Hello, this is a useEffect for when setting items');
-    localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
+  // useEffect(() => {
+  //   console.log('Hello, this is a useEffect for when setting items');
+  //   localStorage.setItem('items', JSON.stringify(items));
+  // }, [items]);
 
   // useEffect(() => {
   //   const items = JSON.parse(localStorage.getItem('items'));
@@ -26,16 +34,22 @@ function SearchNav() {
   // }, []);
 
   const showSidebar = () => {
-    //console.log(sidebar);
     setSidebar(!sidebar);
+  };
+
+  const handleChange = (e) => {
+    setText(e.target.value);
   };
 
   const searchLocation = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
-    // setText(e.target.value);
-    // setItems(e.target.value);
-    console.log('Submitting this type in ', text);
+    if (text === '') {
+      alert('Please enter something');
+    } else {
+      //getLongandLat(text);
+      getWeather(text);
+      setText('');
+    }
   };
 
   return (
@@ -67,20 +81,43 @@ function SearchNav() {
                   <form onSubmit={searchLocation} style={{ width: '100%' }}>
                     <input
                       className="inputfield"
-                      placeholder="Another location"
+                      placeholder="Another location (City, State, or ZipCode)"
                       type="text"
+                      value={text}
+                      onChange={handleChange}
                     />
                   </form>
                 </div>
               </div>
             </li>
           </ul>
-          {weather.map((item, index) => {
-            return (
-              <>
-                <ul
-                  className="nav-menu-items"
-                  /*style={{
+          <div style={{ paddingLeft: '85px', paddingBottom: '30px' }}>
+            {weather.map((item, index) => {
+              return (
+                <>
+                  <span
+                    style={{
+                      color: 'darkgrey',
+                      paddingLeft: '16px',
+                      display: 'flex',
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                </>
+              );
+            })}
+          </div>
+          <div
+            style={{
+              borderBottom: '1px solid white',
+              margin: '0 100px 0 100px',
+              width: '80%',
+            }}
+          ></div>
+          <ul
+            className="nav-menu-items"
+            /*style={{
             listStyle: 'none',
             padding: 0,
             margin: 0,
@@ -89,42 +126,35 @@ function SearchNav() {
             justifyContent: 'flex-end',
             gap: '1rem',
           }}*/
-                >
-                  <li key={index} className="nav-text">
-                    <span>{item.name}</span>
-                  </li>
-                </ul>
-                <div
-                  style={{
-                    borderBottom: '1px solid white',
-                    margin: '0 100px 0 100px',
-                    width: '80%',
-                  }}
-                ></div>
-              </>
-            );
-          })}
-          {weather.map((item, index) => {
-            return (
-              <ul
-                className="nav-menu-items"
-                /*style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            gap: '1rem',
-          }}*/
-              >
-                <li key={index} className="nav-text">
-                  <span>{item.name}</span>
-                  <span>{item.value}</span>
-                </li>
-              </ul>
-            );
-          })}
+          >
+            <span
+              style={{
+                display: 'flex',
+                fontWeight: 'Bold',
+                padding: '30px 16px',
+              }}
+            >
+              Weather Details
+            </span>
+            <li className="nav-text">
+              <span style={{ color: 'darkgrey' }}>Cloudy:</span>
+              <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {cloudy}
+              </span>
+            </li>
+            <li className="nav-text">
+              <span style={{ color: 'darkgrey' }}>Humidity:</span>
+              <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {humidity}
+              </span>
+            </li>
+            <li className="nav-text">
+              <span style={{ color: 'darkgrey' }}>Winds:</span>
+              <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {winds}m/hr
+              </span>
+            </li>
+          </ul>
         </div>
         <Button style={{ maxWidth: '200px' }} showSidebar={showSidebar} />
       </nav>

@@ -15,4 +15,8 @@ Temperature.propTypes = {
   temp: PropTypes.string.isRequired,
 };
 
+Temperature.defaultProps = {
+  temp: '90',
+};
+
 export default Temperature;
